@@ -8,11 +8,9 @@ import { getPosts } from './api';
 function App() {
 
   return (
-    <>
-      <div>
-        <h1 id='homepage'>Home Page</h1>
-      </div>
-    </>
+    <div className='homepage'>
+      <h1 className='welcome'>Welcome to Social</h1>
+    </div>
   )
 }
 

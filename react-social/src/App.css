@@ -1,8 +1,196 @@
-html {
+html, body {
   height: 100%;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: rgba(235, 173, 183, 0.635);
+}
+
+#root {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+}
+
+#page-content {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  align-items: center;
+  padding-top: 5%;
+  overflow-y: auto;
+
+}
+
+#login {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+
+}
+
+#navbar {
+  background-color: #13c8d9;
+  
+}
+
+#profile {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#homepage {
+  background-image: url('./assets/socialmedia.jpg');
+  background-size: cover; /* or contain, depending on your preference */
+  background-repeat: no-repeat;
+  background-attachment: fixed; /* makes the background image fixed when scrolling */
+  background-position: center center;
 }
 
 
-#page-content {
-  flex-grow: 2;
+#profile {
+  color: #ffffff;
+}
+
+#navitem {
+  color: #ffffff
+}
+
+#navitem:hover{
+  color: black;
+  transform: translateY(-5px);
+}
+
+#btn {
+  background-color: #13c8d9;
+  color: #ffffff;
+}
+
+#btn:hover {
+  background-color: white;
+  color: #13c8d9;
+}
+
+#sign {
+  color: black;
+}
+
+h1, h2 {
+  font-family: 'Playfair Display', serif;
+}
+
+.container {
+  max-height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
+.header {
+  margin-bottom: 20px;
+}
+
+.label {
+  display: flex;
+  justify-content: center;
+}
+
+.stuff {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+  justify-content: center;
+  align-items: center;
+}
+
+.input-field {
+  margin-bottom: 10px;
+}
+
+.button-group {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 400px;
+}
+
+button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 5px;
+  flex: 1; /* Make buttons grow and shrink equally */
+}
+
+button:hover {
+  background-color: #ddd;
+}
+
+.books-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.book-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.8);
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 5px;
+  width: 100%;
+}
+
+.book-details {
+  flex-grow: 1;
+}
+
+.book-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.posts-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  
+}
+
+.welcome {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 10%;
+  font-size: 400%;
+}
+
+.post-list {
+  width: 100%;
+  max-width: 600px;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+p {
+  margin-bottom: 0;
+}
+
+.pic {
+  margin-bottom: 1rem;
 }

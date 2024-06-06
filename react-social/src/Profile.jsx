@@ -1,5 +1,7 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { createPost, fetchUser, getUserPosts, updatePost, deletePost } from './api';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Profile = () => {
     const [posts, setPosts] = useState([]);
@@ -10,6 +12,8 @@ const Profile = () => {
     const [editingPost, setEditingPost] = useState(null)
     const [firstName, setFirstName] = useState('');
     const accessToken = localStorage.getItem('accessToken');
+    const [avatar, setAvatar] = useState('')
+    console.log('avatar: ', avatar)
 
     useEffect(() => {
         if (accessToken) {
@@ -24,6 +28,8 @@ const Profile = () => {
           const userData = await fetchUser({ auth: { accessToken } });
           console.log("User Data: ", userData);
           setFirstName(userData.first_name);
+          setAvatar(userData.avatar)
+          console.log('user avatar: ', userData.avatar)
         } catch (error) {
           console.error("Error getting user: ", error);
         }
@@ -54,6 +60,7 @@ const Profile = () => {
             const response = await createPost(formData, { auth: { accessToken }});
             console.log('Create post: ', response);
             setNewPost({ content: '', image: null });
+            toast.success('New Post Successful!')
             await handleGetPosts();
         }
         catch (error) {
@@ -80,9 +87,16 @@ const Profile = () => {
     const handleUpdatePost = async (event, postId) => {
         event.preventDefault();
         try {
-            await updatePost(postId, newPost, { auth: { accessToken }});
+            const formData = new FormData();
+            formData.append('content', newPost.content);
+            if (newPost.image instanceof File) {
+                formData.append('image', newPost.image);
+            }
+
+            await updatePost(postId, formData, { auth: { accessToken }});
             await handleGetPosts();
             setNewPost({ content: '', image: null });
+            toast.success('Post Updated Successfully!')
             setEditingPost(null);
         }
         catch (error) {
@@ -91,7 +105,7 @@ const Profile = () => {
     };
 
     const handleEditPost = (post) => {
-        setNewPost({ content: post.content, image: post.image });
+        setNewPost({ content: post.content, image: null });
         setEditingPost(post.id);
     }
 
@@ -101,6 +115,7 @@ const Profile = () => {
             await deletePost(postId, { auth: { accessToken }});
             await handleGetPosts();
             setNewPost({ content: '', image: null });
+            toast.success('Post Deleted Successfully!')
         }
         catch (error) {
             console.error('Error deleting book front: ', error);
@@ -111,32 +126,39 @@ const Profile = () => {
     return (
         <div className='container'>
             <h1 className='header'>{firstName}'s Profile Page</h1>
+            <img src={`http://localhost:8000/${avatar}`} style={{ width: '20%'}} alt='avatar' />
             <div className='form-group'>
                 <h2>{editingPost ? 'Edit Post' : 'Create a new Post'}</h2>
                 <form onSubmit={editingPost ? (e) => handleUpdatePost(e, editingPost) : handleCreatePost}>
-                    <div>
-                        <label htmlFor='content'>Write something:</label>
+                    <div className='stuff'>
+                        <label htmlFor='content' className='label'>Write something:</label>
                         <textarea id='content' name='content' value={newPost.content} onChange={handlePostChange} />
                     </div>
                     <div>
                         <label htmlFor='image'>Add an Image</label>
-                        <input type='file' id='image' name='image' onChange={handlePostChange} />
+                        <input type='file' id='image' name='image' onChange={handlePostChange} className='input-field' />
                     </div>
-                    <button type='submit'>{editingPost ? 'Update' : 'Post'}</button>
+                    <button className='button-group' type='submit'>{editingPost ? 'Update' : 'Post'}</button>
                 </form>
             </div>
             <div>
-                <h2>Posts</h2>
+                <h2>Your Posts</h2>
+                <ul className='books-list'>
                 {posts.map((post) => (
-                    <div key={post.id}>
+                    <li key={post.id} className='book-item'>
+                        <div className='book-details'>
                         <p>{post.content}</p>
                         {post.image && <img src={`http://127.0.0.1:8000/${post.image}`} 
                         style={{ width: '20%'}}
                         alt="Post" />}
+                        </div>
+                        <div className='book-actions'>
                         <button onClick={() => handleEditPost(post)}>Edit</button>
                         <button onClick={() => handleDeletePost(post.id)}>Delete</button>
-                    </div>
+                        </div>
+                    </li>
                 ))}
+                </ul>
             </div>
         </div>
     );

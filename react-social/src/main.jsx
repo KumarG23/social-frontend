@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify'; // Import ToastContainer
+import 'react-toastify/dist/ReactToastify.css'; // Import ToastContainer CSS
 
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './App.css'; // make sure this path is correct
+import './App.css';
 
 import App from './App.jsx';
 import Login from './Login.jsx';
@@ -24,6 +26,7 @@ function Layout() {
         <Outlet />
       </div>
       <Footer />
+      <ToastContainer />
     </>
   );
 }
