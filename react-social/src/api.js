@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const url = 'http://127.0.0.1:8000';
+export const url = 'http://127.0.0.1:8000';
 
 export const createUser = ({ username, password, firstName, lastName }) => {
     axios({
@@ -50,27 +50,23 @@ export const createUser = ({ username, password, firstName, lastName }) => {
     }
   };
 
-  export const createPost = async ({ content, image }, { auth }) => {
-    return axios({
-        method: 'post',
-        url: `${url}/posts/create/`,
-        headers: {
-            Authorization: `Bearer ${auth.accessToken}`,
-        },
-        data: {
-            content,
-            image
-        },
-    })
-        .then((response) => {
-            console.log('create-post: ', response);
-            return response.data;
-        })
-        .catch((error) => {
-            console.error('error: ', error);
-            throw error;
-        });
-    };
+  export const createPost = async (formData, { auth }) => {
+    try {
+      const response = await axios({
+          method: 'post',
+          url: `${url}/posts/create/`,
+          headers: {
+              Authorization: `Bearer ${auth.accessToken}`,
+          },
+          data: formData,
+      });
+      console.log('create-post: ', response);
+      return response.data;
+    } catch (error) {
+      console.error('error: ', error);
+      throw error;
+    }
+};
 
     export const getPosts = async ({ auth }) => {
         try {
@@ -89,3 +85,54 @@ export const createUser = ({ username, password, firstName, lastName }) => {
             throw error;
         }
     };
+
+    export const getUserPosts = async ({ userId, auth }) => {
+      try {
+          const response = await axios ({
+              url: `${url}/user/posts/`,
+              method: 'get',
+              headers: {
+                  Authorization: `Bearer ${auth.accessToken}`,
+              },
+          });
+          console.log('getUserPosts: ', response);
+          return response.data;
+      }
+      catch (error) {
+          console.error('Error getting posts: ', error);
+          throw error;
+      }
+  };
+
+  export const updatePost = async (postId, newData, {auth}) => {
+    try {
+      const response = await axios.put(`${url}/posts/${postId}/update/`,
+        newData, {
+          headers: {
+            Authorization: `Bearer ${auth.accessToken}`
+          }
+        }
+      )
+      console.log('updated post: ', response);
+      return response.data;
+
+    } catch (error) {
+      console.error('Error updating post: ', error);
+      throw error;
+    }
+  }
+
+export const deletePost = async (postId, {auth}) => {
+  try {
+    const response = await axios.delete(`${url}/posts/${postId}/delete/`, {
+      headers: {
+        Authorization: `Bearer ${auth.accessToken}`
+      }
+    })
+    console.log('Post id: ', postId)
+    console.log('Delete post: ', response);
+  } catch (error) {
+    console.error ('Error deleting post: ', error);
+    throw error;
+  }
+}

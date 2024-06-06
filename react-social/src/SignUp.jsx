@@ -1,7 +1,6 @@
 import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { AuthContext } from './AuthContext';
-import { getToken, createUser } from './api';
+import { useNavigate } from 'react-router-dom';
+import { createUser } from './api';
 
 
 const SignUp = () => {

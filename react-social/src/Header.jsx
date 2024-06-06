@@ -13,6 +13,7 @@ export const Header = () => {
         <Link to='/' className='nav-item nav-link' id='navitem'>Home</Link>
         <Link to='/login' className='nav-item nav-link' id='navitem'>Login</Link>
         <Link to='/profile' className='nav-item nav-link' id='navitem'>Profile</Link>
+        <Link to='/posts' className='nav-item nav-link'>Posts</Link>
         </div>
         </div>
     </nav>
