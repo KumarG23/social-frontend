@@ -6,7 +6,7 @@ html, body {
 }
 
 body {
-  background-color: rgba(235, 173, 183, 0.635);
+  background-color: #fd7b57af;
 }
 
 #root {
@@ -81,7 +81,7 @@ body {
 }
 
 h1, h2 {
-  font-family: 'Playfair Display', serif;
+  
 }
 
 .container {
