@@ -54,13 +54,13 @@ const Posts = () => {
                             <p>{post.profile.user.username}</p>
                             {post.profile.avatar && (
                                 <img className='pic'
-                                src={`http://localhost:8000${post.profile.avatar}`}
+                                src={`https://social-backend.fly.dev/${post.profile.avatar}`}
                                 alt='user avatar'
                                 style={{ width: '5%' }}
                                 />
                             )}
                         <p>{post.content}</p>
-                        {post.image && <img src={`http://127.0.0.1:8000/${post.image}`} 
+                        {post.image && <img src={`https://social-backend.fly.dev/${post.image}`} 
                         style={{ width: '20%'}}
                         alt="Post" />}
                         <p>{timeDifference(post.created_at)}</p>

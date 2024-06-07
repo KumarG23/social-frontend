@@ -126,7 +126,7 @@ const Profile = () => {
     return (
         <div className='container'>
             <h1 className='header'>{firstName}'s Profile Page</h1>
-            <img src={`http://localhost:8000/${avatar}`} style={{ width: '20%'}} alt='avatar' />
+            <img src={`https://social-backend.fly.dev/${avatar}`} style={{ width: '20%'}} alt='avatar' />
             <div className='form-group'>
                 <h2>{editingPost ? 'Edit Post' : 'Create a new Post'}</h2>
                 <form onSubmit={editingPost ? (e) => handleUpdatePost(e, editingPost) : handleCreatePost}>
@@ -148,7 +148,7 @@ const Profile = () => {
                     <li key={post.id} className='book-item'>
                         <div className='book-details'>
                         <p>{post.content}</p>
-                        {post.image && <img src={`http://127.0.0.1:8000/${post.image}`} 
+                        {post.image && <img src={`https://social-backend.fly.dev/${post.image}`} 
                         style={{ width: '20%'}}
                         alt="Post" />}
                         </div>
